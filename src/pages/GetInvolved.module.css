@@ -1,0 +1,185 @@
+/* ── HEADER BAND ── */
+.band {
+  background: var(--navy);
+  color: var(--white);
+  padding-top: clamp(2rem, 7vw, 3.5rem);
+}
+.eyebrow {
+  font-family: var(--font-script);
+  color: var(--gold);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.bandTitle {
+  font-size: clamp(1.9rem, 8vw, 3.25rem);
+  color: var(--white);
+  margin-top: 0.25rem;
+}
+
+/* ── LAYOUT ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ── FORM ── */
+.formCard {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 5vw, 2.25rem);
+  box-shadow: var(--shadow);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-top: 1.25rem;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.field label {
+  font-family: var(--font-head);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.85rem;
+  color: var(--navy);
+}
+.field input,
+.field select {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.8rem 0.9rem;
+  border: 1.5px solid #d6d2c8;
+  border-radius: 10px;
+  background: var(--offwhite);
+  color: var(--text);
+  min-height: 48px;
+  width: 100%;
+}
+.field input:focus,
+.field select:focus {
+  border-color: var(--gold);
+  background: var(--white);
+}
+
+.success {
+  margin-top: 1.25rem;
+  padding: 1.1rem 1.25rem;
+  background: rgba(30, 142, 62, 0.1);
+  border-left: 4px solid var(--green);
+  border-radius: 8px;
+  color: var(--text);
+}
+.error {
+  color: #b3261e;
+  font-size: 0.95rem;
+}
+
+/* ── SIDE (contribute + whatsapp) ── */
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.contribute {
+  background: var(--navy);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 5vw, 2rem);
+  box-shadow: var(--shadow);
+}
+/* Keyline eyebrow is navy by default — lift it on this dark card. */
+.contribute :global(.section-label) {
+  color: var(--gold-light);
+}
+.sideTitle {
+  color: var(--white);
+  font-size: 1.35rem;
+  margin: 0.5rem 0 1.1rem;
+}
+.mpesa {
+  display: flex;
+  gap: 1rem;
+}
+.mpesa > div {
+  flex: 1;
+  background: var(--navy-light);
+  border: 1.5px solid var(--gold);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+}
+.mpesa dt {
+  font-family: var(--font-head);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: var(--gold);
+}
+.mpesa dd {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--white);
+  margin-top: 0.2rem;
+}
+.disclaimer {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.whatsapp {
+  width: 100%;
+  text-align: center;
+}
+
+/* ── EVENTS ── */
+.eventsSection {
+  background: var(--white);
+}
+.events {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.event {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--offwhite);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--green);
+}
+.eventDate {
+  font-family: var(--font-head);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--green);
+  font-size: 0.9rem;
+}
+.eventTitle {
+  font-weight: 600;
+  color: var(--navy);
+}
+.eventLoc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+@media (min-width: 800px) {
+  .grid {
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,214 @@
+/* ── HERO (poster plate) ── */
+.hero {
+  background: var(--navy);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(1.75rem, 5.5vw, 3.25rem);
+}
+/* Thin gold printed frame — open at the top so no gold line sits under
+   the navbar; it hangs from the header like a bracket. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0 clamp(10px, 2.5vw, 22px) clamp(10px, 2.5vw, 22px);
+  border: 1.5px solid rgba(201, 162, 39, 0.55);
+  border-top: none;
+  pointer-events: none;
+  z-index: 2;
+}
+/* Oversized ghost year, cropped by the plate edge. The signature backdrop. */
+.ghostYear {
+  position: absolute;
+  top: 50%;
+  right: -0.08em;
+  transform: translateY(-50%);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(11rem, 42vw, 34rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.045);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  align-items: flex-start;
+}
+
+.wardLabel {
+  font-family: var(--font-head);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-size: clamp(1.1rem, 3.6vw, 1.5rem);
+  color: var(--green);
+  margin-bottom: 0.15rem;
+}
+
+.name {
+  font-size: clamp(2.35rem, 14vw, 5.9rem);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+}
+.nameWhite {
+  color: var(--white);
+}
+.nameGold {
+  color: var(--gold);
+}
+
+/* Center the "2027 MCA" oval within the text column. */
+.pillRow {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.slogan {
+  font-size: clamp(1.7rem, 7vw, 2.7rem);
+  margin: 0.1rem 0 0.3rem;
+}
+
+.heroImageWrap {
+  align-self: center;
+  width: 100%;
+  max-width: 270px;
+}
+/* Official portrait, framed in gold to match the poster's frame language. */
+.heroImage {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 2px solid var(--gold);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── PRIORITY CARDS ── */
+.cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+/* Clean plates: no edges, defined by a soft shadow only. */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.5rem 1.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+.cardTitle {
+  color: var(--navy);
+  font-size: 1.3rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.55rem;
+}
+.cardText {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+.readMore {
+  margin-top: 1.75rem;
+}
+
+/* ── ABOUT ── */
+.about {
+  background: var(--white);
+}
+.aboutInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+.aboutImageWrap {
+  width: 100%;
+}
+.aboutImage {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+.aboutText {
+  margin: 1rem 0 1.25rem;
+  color: var(--text);
+}
+
+/* ── PHOTO STRIP ── */
+.gallery {
+  background: var(--offwhite);
+}
+.photoGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+}
+.photoItem {
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--hairline);
+}
+/* The portraits are shot 2:3; matching the cell to the frame keeps them uncropped. */
+.photoItem img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+/* ── Tablet / desktop ── */
+@media (min-width: 700px) {
+  .heroInner {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-block: 0.5rem;
+  }
+  .heroText {
+    padding-top: 0.75rem;
+    /* Shrink to the name's width so the centered pill aligns to the name. */
+    flex: 0 1 auto;
+  }
+  .heroImageWrap {
+    flex: 0 0 auto;
+    align-self: flex-end;
+    max-width: 37%;
+  }
+
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .aboutInner {
+    flex-direction: row;
+    align-items: center;
+  }
+  .aboutImageWrap {
+    flex: 0 0 42%;
+  }
+
+  /* Four portraits in one editorial row, each cell keeping the 2:3 frame. */
+  .photoGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+}
