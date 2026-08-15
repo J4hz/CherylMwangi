@@ -1,148 +1,232 @@
 import { Link } from 'react-router-dom'
+import CredentialsStrip from '../components/CredentialsStrip'
+import RoomsBand from '../components/RoomsBand'
+import SectionHeading from '../components/SectionHeading'
+import { formatDate, publishedPosts } from '../content/posts'
+import { ABOUT_PARAGRAPHS, FOCUS_AREAS, HERO, STATS } from '../data/content'
 import usePageMeta from '../hooks/usePageMeta'
-import SectionDivider from '../components/SectionDivider.jsx'
-import { CANDIDATE, SLOGAN, PRIORITIES } from '../config'
-import styles from './Home.module.css'
+import useReveal, { revealClass } from '../hooks/useReveal'
 
-import cutout from '../assets/maureen-portrait.jpg'
-import photo1 from '../assets/photo-1.jpg'
-import photo2 from '../assets/photo-2.jpg'
-import photo3 from '../assets/photo-3.jpg'
-import photo4 from '../assets/photo-4.jpg'
-import photo5 from '../assets/photo-5.jpg'
+const DELAYS = ['delay-0', 'delay-[80ms]', 'delay-[160ms]', 'delay-[240ms]', 'delay-[320ms]', 'delay-[400ms]']
 
-const PHOTOS = [
-  { src: photo2, alt: "Maureen Ndung'u, standing portrait" },
-  { src: photo3, alt: "Maureen Ndung'u, seated portrait" },
-  { src: photo4, alt: "Maureen Ndung'u in a dark suit, full-length portrait" },
-  { src: photo5, alt: "Maureen Ndung'u in a white blouse, full-length portrait" },
-]
+function Hero() {
+  return (
+    <section className="bg-white">
+      <div className="mx-auto max-w-shell px-5 pb-10 pt-6 sm:px-8 sm:pb-14 sm:pt-10">
+        <div className="max-w-4xl">
+          <p className="animate-rise eyebrow text-green-600">{HERO.eyebrow}</p>
+
+          <h1 className="mt-7 animate-rise font-display text-[clamp(2.75rem,7.6vw,5.75rem)] font-semibold leading-[0.96] tracking-tightest text-ink [animation-delay:0.08s]">
+            {HERO.headline}{' '}
+            <em className="font-normal italic text-green-700">{HERO.headlineEmphasis}</em>
+          </h1>
+
+          <p className="mt-9 max-w-2xl animate-rise font-body text-lg leading-relaxed text-ink-soft [animation-delay:0.16s] sm:text-xl">
+            {HERO.lede}
+          </p>
+
+          <div className="mt-11 flex animate-rise flex-wrap gap-4 [animation-delay:0.24s]">
+            <Link to="/contact" className="btn">
+              Get in touch
+            </Link>
+            <Link to="/about" className="btn-outline">
+              Meet Cheryl
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Focus() {
+  const [ref, isRevealed] = useReveal()
+
+  return (
+    <section className="bg-mist">
+      <div className="mx-auto max-w-shell px-5 py-12 sm:px-8 sm:py-16">
+        <SectionHeading
+          eyebrow="What she works on"
+          title="Six areas, one practice."
+          standfirst="Clinical work, the systems around it, and the training that keeps both standing."
+        />
+
+        <ul ref={ref} className="mt-16 grid gap-px overflow-hidden rounded-2xl bg-edge sm:grid-cols-2 lg:grid-cols-3">
+          {FOCUS_AREAS.map((area, index) => (
+            <li
+              key={area.title}
+              className={`${revealClass(isRevealed, DELAYS[index])} group bg-white p-8 transition-colors duration-300 hover:bg-green-50 sm:p-10`}
+            >
+              <span
+                aria-hidden="true"
+                className="block h-[3px] w-9 bg-green-500 transition-all duration-300 group-hover:w-16 group-hover:bg-green-700"
+              />
+              <h3 className="mt-7 font-display text-xl font-semibold leading-snug tracking-tight text-ink">
+                {area.title}
+              </h3>
+              <p className="mt-3.5 font-body leading-relaxed text-ink-soft">{area.description}</p>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-12">
+          <Link to="/practice" className="arrowlink">
+            See the full practice <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </p>
+      </div>
+    </section>
+  )
+}
+
+function AboutPreview() {
+  const [ref, isRevealed] = useReveal()
+
+  return (
+    <section className="bg-white">
+      <div className="mx-auto max-w-shell px-5 py-12 sm:px-8 sm:py-16">
+        <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <SectionHeading eyebrow="Who she is" title="A decade of sitting with the hardest parts." />
+
+          <div>
+            {ABOUT_PARAGRAPHS.slice(0, 2).map((paragraph) => (
+              <p
+                key={paragraph.slice(0, 40)}
+                className="font-body text-lg leading-relaxed text-ink-soft [&+&]:mt-6"
+              >
+                {paragraph}
+              </p>
+            ))}
+
+            <p className="mt-9">
+              <Link to="/about" className="arrowlink">
+                Read her full background <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        {/* `flex-col-reverse` keeps the required <dt> before <dd> in the markup
+            while showing the number above its label. The label used to be
+            repeated in a visually-hidden <dt>, which meant screen readers and
+            anyone copying the page got every stat twice. */}
+        <dl ref={ref} className="mt-14 grid gap-x-8 gap-y-14 border-t border-edge pt-12 sm:grid-cols-2 lg:grid-cols-4">
+          {STATS.map((stat, index) => (
+            <div
+              key={stat.label}
+              className={`${revealClass(isRevealed, DELAYS[index])} flex flex-col-reverse items-center text-center`}
+            >
+              <dt className="mt-4 max-w-[14rem] font-body text-sm leading-snug text-ink-soft">
+                {stat.label}
+              </dt>
+              <dd className="font-display text-[3.25rem] font-semibold leading-none tracking-tightest text-green-700">
+                {stat.num}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  )
+}
+
+function LatestWriting() {
+  const posts = publishedPosts.slice(0, 3)
+
+  return (
+    <section className="bg-mist">
+      <div className="mx-auto max-w-shell px-5 py-12 sm:px-8 sm:py-16">
+        <SectionHeading
+          eyebrow="Writing"
+          title="Notes from the work."
+          standfirst="Short pieces on trauma-informed practice, and what it costs the people carrying it."
+        />
+
+        {posts.length === 0 ? (
+          <div className="mt-14 border-t border-edge pt-14">
+            <p className="max-w-xl font-display text-2xl font-normal italic leading-snug text-ink">
+              Cheryl&rsquo;s first post is on its way.
+            </p>
+            <p className="mt-5 max-w-prose font-body leading-relaxed text-ink-soft">
+              Writing on trauma-informed practice, caring for the people who do the caring, and what
+              the frameworks look like once they meet a real caseload.
+            </p>
+            <p className="mt-9">
+              <Link to="/contact" className="arrowlink">
+                Ask her something in the meantime <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </p>
+          </div>
+        ) : (
+          <>
+            <ul className="mt-14 grid gap-10 border-t border-edge pt-4 sm:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => (
+                <li key={post.slug} className="group relative border-t border-edge pt-8">
+                  <p className="eyebrow text-ink-faint">
+                    <time dateTime={post.date}>{formatDate(post.date)}</time>
+                  </p>
+                  <h3 className="mt-5 font-display text-2xl font-semibold leading-tight tracking-tight text-ink transition-colors duration-200 group-hover:text-green-700">
+                    <Link to={`/blog/${post.slug}`} className="after:absolute after:inset-0">
+                      {post.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-3 font-body leading-relaxed text-ink-soft">{post.excerpt}</p>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-12">
+              <Link to="/blog" className="arrowlink">
+                All writing <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </p>
+          </>
+        )}
+      </div>
+    </section>
+  )
+}
+
+function ContactBand() {
+  return (
+    <section className="bg-green-900">
+      <div className="mx-auto flex max-w-shell flex-col gap-10 px-5 py-12 sm:px-8 sm:py-16 lg:flex-row lg:items-center lg:justify-between">
+        <div className="max-w-2xl">
+          <h2 className="font-display text-[clamp(2rem,4.6vw,3.25rem)] font-semibold leading-[1.04] tracking-tightest text-white">
+            Referrals, training, or a first conversation.
+          </h2>
+          <p className="mt-6 font-body text-lg leading-relaxed text-white/70">
+            Everything comes to the same inbox, and she reads it herself.
+          </p>
+        </div>
+
+        <Link
+          to="/contact"
+          className="inline-flex shrink-0 items-center gap-3 self-start rounded-full bg-white px-8 py-4 font-body text-sm font-bold uppercase tracking-[0.14em] text-green-900 transition-colors duration-200 hover:bg-green-100 focus-visible:ring-offset-green-900"
+        >
+          Get in touch <span aria-hidden="true">&rarr;</span>
+        </Link>
+      </div>
+    </section>
+  )
+}
 
 export default function Home() {
   usePageMeta({
-    title: "Maureen Ndung'u for MCA — Karen Ward",
+    title: 'Cheryl N. Mwangi | Trauma-Informed Care Practitioner, Trainer & Organizational Consultant',
     description:
-      "Maureen Nyaguthii Ndung'u for MCA, Karen Ward, Langata — 2027. Roads & lighting, youth & jobs, a greener Karen. Wanawake Wanaweza.",
-    path: '/',
+      'Cheryl N. Mwangi is a counseling psychologist and trauma specialist in Nairobi, Kenya, and a certified TBRI Practitioner with over a decade of clinical and program-leadership experience.',
   })
 
   return (
     <>
-      {/* ── HERO ── */}
-      <section className={styles.hero} aria-labelledby="hero-name">
-        <span className={styles.ghostYear} aria-hidden="true">
-          {CANDIDATE.year}
-        </span>
-        <div className={`container ${styles.heroInner}`}>
-          <div className={styles.heroText}>
-            <p className={styles.wardLabel}>— {CANDIDATE.ward.toUpperCase()} —</p>
-
-            <h1 id="hero-name" className={styles.name}>
-              <span className={styles.nameWhite}>{CANDIDATE.firstName}</span>
-              <span className={styles.nameGold}>{CANDIDATE.middleName}</span>
-              <span className={styles.nameWhite}>{CANDIDATE.lastName}</span>
-            </h1>
-
-            <div className={styles.pillRow}>
-              <span className="pill">
-                <strong>{CANDIDATE.year}</strong> {CANDIDATE.office}
-              </span>
-            </div>
-
-            <p className={`script ${styles.slogan}`}>{SLOGAN.primary}</p>
-
-            <Link to="/get-involved" className="btn btn-gold">
-              Join the Campaign
-            </Link>
-          </div>
-
-          <div className={styles.heroImageWrap}>
-            <img
-              src={cutout}
-              alt={`${CANDIDATE.fullName}, candidate for ${CANDIDATE.office}`}
-              className={styles.heroImage}
-              width="900"
-              height="1350"
-            />
-          </div>
-        </div>
-        <SectionDivider position="bottom" />
-      </section>
-
-      {/* ── TOP 3 PRIORITIES ── */}
-      <section className="section" aria-labelledby="priorities-title">
-        <div className="container">
-          <span className="section-label">Priorities</span>
-          <h2 id="priorities-title" className="section-title">
-            What I'll focus on first
-          </h2>
-
-          <ul className={styles.cards}>
-            {PRIORITIES.map((p) => (
-              <li key={p.title} className={styles.card}>
-                <h3 className={styles.cardTitle}>{p.title}</h3>
-                <p className={styles.cardText}>{p.text}</p>
-              </li>
-            ))}
-          </ul>
-
-          <p className={styles.readMore}>
-            <Link to="/plan" className="textlink">
-              Read the full plan →
-            </Link>
-          </p>
-        </div>
-      </section>
-
-      {/* ── WHO IS MAUREEN ── */}
-      <section className={`section ${styles.about}`} aria-labelledby="about-title">
-        <div className={`container ${styles.aboutInner}`}>
-          <div className={styles.aboutImageWrap}>
-            <img
-              src={photo1}
-              alt={`${CANDIDATE.shortName}, portrait`}
-              className={styles.aboutImage}
-              loading="lazy"
-              width="960"
-              height="720"
-            />
-          </div>
-          <div>
-            <span className="section-label">About</span>
-            <h2 id="about-title" className="section-title">
-              Who is Maureen
-            </h2>
-            <p className={styles.aboutText}>
-              Maureen was raised in Langata and has built her career in community
-              development. She believes leadership should be transparent,
-              accountable, and people-first. Her focus is simple: deliver the
-              basics well and involve residents in every decision.
-            </p>
-            <Link to="/plan" className="textlink">
-              More about Maureen →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── PHOTO STRIP ── */}
-      <section className={`section ${styles.gallery}`} aria-label="Campaign photos">
-        <div className="container">
-          <ul className={styles.photoGrid}>
-            {PHOTOS.map((photo, i) => (
-              <li key={i} className={styles.photoItem}>
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  loading="lazy"
-                  width="800"
-                  height="1200"
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <Hero />
+      <CredentialsStrip />
+      <RoomsBand animateOnLoad />
+      <Focus />
+      <AboutPreview />
+      <LatestWriting />
+      <ContactBand />
     </>
   )
 }

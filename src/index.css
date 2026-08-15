@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..600&family=Karla:ital,wght@0,300..700;1,400..600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header is 4.5rem; keep anchor targets clear of it. */
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-white font-body text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Fraunces ships an optical-size axis and a `WONK` axis. Turning wonk on at
+     display sizes gives the headlines their slight hand-cut quality; it is the
+     reason this face was chosen over a neutral serif. */
+  h1,
+  h2,
+  h3 {
+    font-variation-settings: 'SOFT' 30, 'WONK' 1;
+  }
+
+  /* One focus treatment sitewide. Green on white, white on green. The ring
+     colour is set per-surface where the default would disappear. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-green-500 ring-offset-2 ring-offset-white;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    @apply bg-green-100 text-green-900;
+  }
+}
+
+@layer components {
+  /* Tracked caps, used for every eyebrow and small label. */
+  .eyebrow {
+    @apply font-body text-eyebrow font-bold uppercase;
+  }
+
+  /* The recurring "keep reading" affordance: a green word with a rule under it
+     that thickens on hover. */
+  .arrowlink {
+    @apply inline-flex items-center gap-2 font-body text-sm font-bold uppercase tracking-[0.14em] text-green-700 underline decoration-green-400 decoration-2 underline-offset-[7px] transition-colors duration-200 hover:text-green-500 hover:decoration-green-700;
+  }
+
+  /* Solid primary action. */
+  .btn {
+    @apply inline-flex items-center gap-3 rounded-full bg-green-700 px-8 py-4 font-body text-sm font-bold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:bg-green-500;
+  }
+
+  /* Same shape, outlined. Never two solid buttons side by side. */
+  .btn-outline {
+    @apply inline-flex items-center gap-3 rounded-full border border-green-700/35 px-8 py-4 font-body text-sm font-bold uppercase tracking-[0.14em] text-green-700 transition-colors duration-200 hover:border-green-700 hover:bg-green-50;
+  }
+
+  /* Small green-tinted tag, used for years, tags, and settings. */
+  .chip {
+    @apply inline-block rounded-full bg-green-50 px-4 py-1.5 font-body text-label font-bold uppercase text-green-700;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+}

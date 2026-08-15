@@ -2,46 +2,65 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-
-    <!-- Base meta (per-page values are set by usePageMeta) -->
-    <title>Maureen Ndung'u for MCA — Karen Ward</title>
+    <meta name="theme-color" content="#3C4F24" />
+    <title>Cheryl N. Mwangi | Trauma-Informed Care Practitioner, Trainer &amp; Organizational Consultant</title>
     <meta
       name="description"
-      content="Maureen Nyaguthii Ndung'u for MCA, Karen Ward, Langata — 2027. Roads &amp; lighting, youth &amp; jobs, a greener Karen. Wanawake Wanaweza."
+      content="Cheryl N. Mwangi is a trauma-informed care practitioner, trainer, and organizational consultant in Nairobi, Kenya, and a certified TBRI Practitioner with over a decade of clinical and program-leadership experience."
     />
-    <meta name="theme-color" content="#0E2240" />
+    <meta name="author" content="Cheryl N. Mwangi" />
+    <link rel="canonical" href="https://www.cherylmwangi.com/" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Maureen Ndung'u for MCA — Karen Ward" />
-    <meta property="og:title" content="Maureen Ndung'u for MCA — Karen Ward" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="Cheryl N. Mwangi | Trauma-Informed Care Practitioner, Trainer &amp; Organizational Consultant" />
     <meta
       property="og:description"
-      content="Maureen Nyaguthii Ndung'u for MCA, Karen Ward, Langata — 2027. Wanawake Wanaweza."
+      content="Trauma-informed care practitioner, trainer, and organizational consultant. Nairobi, Kenya."
     />
-    <meta property="og:url" content="https://www.votemaureen4karen.co.ke/" />
-    <meta property="og:image" content="https://www.votemaureen4karen.co.ke/og-image.jpg" />
+    <meta property="og:url" content="https://www.cherylmwangi.com/" />
+    <!--
+      TODO: no social preview image yet. The campaign og-image.jpg was deleted with
+      the rest of the old site's assets, and nothing of Cheryl's has replaced it.
+      Add a 1200x630 image to /public and uncomment, once she has approved one:
+      <meta property="og:image" content="https://www.cherylmwangi.com/og-image.jpg" />
+      <meta property="og:image:alt" content="..." />
+      <meta name="twitter:card" content="summary_large_image" />
+      Until then links shared to WhatsApp, LinkedIn, and X show text only.
+    -->
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Maureen Ndung'u for MCA — Karen Ward" />
-    <meta
-      name="twitter:description"
-      content="Maureen Nyaguthii Ndung'u for MCA, Karen Ward, Langata — 2027. Wanawake Wanaweza."
-    />
-
-    <!-- Google Fonts: preconnect + single stylesheet request -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
-    <div id="root"></div>
+    <!--
+      Boot skeleton. React clears #root on its first render, so this is only ever
+      on screen between first paint and hydration. It is inline-styled on purpose:
+      the stylesheet may not have arrived yet, and an unstyled skeleton is worse
+      than none. Keep it in rough proportion to the real masthead.
+    -->
+    <style>
+      @keyframes boot-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.45 } }
+      .boot { padding: 0; margin: 0; font-family: system-ui, sans-serif; }
+      .boot-bar { background: #DCE6DC; border-radius: 4px; }
+      .boot-fade { animation: boot-pulse 1.8s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) { .boot-fade { animation: none } }
+    </style>
+    <div id="root">
+      <div class="boot" aria-hidden="true">
+        <div style="height:4.5rem;border-bottom:1px solid #DCE6DC"></div>
+        <div class="boot-fade" style="max-width:82rem;margin:0 auto;padding:4rem 1.25rem 3.5rem">
+          <div class="boot-bar" style="height:.75rem;width:8rem"></div>
+          <div class="boot-bar" style="height:3.5rem;width:100%;max-width:44rem;margin-top:2rem"></div>
+          <div class="boot-bar" style="height:3.5rem;width:70%;max-width:32rem;margin-top:1rem"></div>
+          <div class="boot-bar" style="height:1rem;width:100%;max-width:36rem;margin-top:2.5rem"></div>
+          <div class="boot-bar" style="height:1rem;width:80%;max-width:30rem;margin-top:.75rem"></div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
